@@ -1,21 +1,12 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Divider from 'renderer/components/Divider';
-import Toast from 'renderer/components/Toast';
-import { useToast } from 'renderer/util/useToast';
 import Typography from '../components/Typography';
-import Button from '../components/Button';
 import Flexbox from '../components/Flexbox';
 import ExerciseSVG from '../icons/exercise.svg';
 import BinocularsSVG from '../icons/binoculars.svg';
-import BinocularsSimpleSVG from '../icons/binoculars-simple.svg';
 import WaterSVG from '../icons/water.svg';
-import EyelidSVG from '../icons/eyelid.svg';
-import BreakSVG from '../icons/break.svg';
 
-const Box = styled.div`
-  /* padding: 16px; */
-`;
+const Box = styled.div``;
 
 const Card = styled(Flexbox)`
   flex-direction: column;
@@ -32,8 +23,6 @@ const Icon = styled.img`
 `;
 
 export default function Home() {
-  const { showToast } = useToast();
-
   return (
     <Box>
       <Flexbox padding={24}>
@@ -65,44 +54,6 @@ export default function Home() {
             mind for better focus.
           </Typography>
         </Card>
-      </Flexbox>
-      <Divider />
-      <Flexbox padding={24} justifyContent="flex-end" gap={8}>
-        <Button
-          variant="tertiary"
-          onClick={() =>
-            showToast("Don't forget to blink!", 'error', EyelidSVG, false)
-          }
-        >
-          Blinking
-        </Button>
-        <Button
-          variant="tertiary"
-          onClick={() =>
-            showToast(
-              "Don't stare - look around!",
-              'error',
-              BinocularsSimpleSVG,
-              true,
-            )
-          }
-        >
-          Staring
-        </Button>
-        <Button
-          variant="tertiary"
-          onClick={() =>
-            showToast(
-              "Take a break - you've been staring at your screen for 50 minutes",
-              'success',
-              BreakSVG,
-              true,
-            )
-          }
-        >
-          Break
-        </Button>
-        <Button link="/calibration">Calibrate</Button>
       </Flexbox>
     </Box>
   );

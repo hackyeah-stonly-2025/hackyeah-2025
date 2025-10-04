@@ -2,16 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,400,0..1,0');
 
 :root {
-  --primary-70: #98583b;
-  --primary-90: #c3714d;
-  --primary-100: #6FA4AF;
-  --primary-140: #e8b199;
-  --primary-170: #f4d8cc;
-  --primary-180: #f7e5dd;
-  --primary-190: #fbf2ee;
+  --primary-70: #516f76;
+  --primary-90: #688f97;
+  --primary-100: #749fa8;
+  --primary-140: #acc5cb;
+  --primary-170: #d5e2e5;
+  --primary-180: #e3ecee;
+  --primary-190: #f1f5f6;
 
-  --secondary-100: #9886b3;
-  --secondary-190: #f4f2f7;
+  --secondary-100: #b8c4a9;
+  --secondary-190: #f1f3ee;
 
   --neutral-40: #1c1c1d;
   --neutral-60: #2b2b2c;

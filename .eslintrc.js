@@ -16,6 +16,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'consistent-return': 'off',
     'react/jsx-no-bind': 'off',
+    'react/jsx-no-useless-fragment': 'off',
   },
   parserOptions: {
     ecmaVersion: 2022,
