@@ -1,62 +1,181 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Roboto:wght@400;500;600;700;800&family=Roboto+Condensed:wght@400;500;600;700;800&family=Roboto+Mono:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,400,0..1,0');
+
+:root {
+  --primary-70: #98583b;
+  --primary-90: #c3714d;
+  --primary-100: #6FA4AF;
+  --primary-140: #e8b199;
+  --primary-170: #f4d8cc;
+  --primary-180: #f7e5dd;
+  --primary-190: #fbf2ee;
+
+  --secondary-100: #9886b3;
+  --secondary-190: #f4f2f7;
+
+  --neutral-40: #1c1c1d;
+  --neutral-60: #2b2b2c;
+  --neutral-80: #39393a;
+  --neutral-100: #474849;
+  --neutral-120: #6c6d6e;
+  --neutral-140: #919293;
+  --neutral-160: #b5b6b7;
+  --neutral-170: #d3d4d5;
+  --neutral-180: #e9eaea;
+  --neutral-190: #f8f9fa;
+  --neutral-200: #ffffff;
+
+  --info-100: #8cb9da;
+  --info-190: #f4f9fc;
+
+  --error-80: #be5e5e;
+  --error-90: #d66969;
+  --error-100: #ee7575;
+  --error-190: #fdf1f1;
+
+  --success-100: #84ca7e;
+  --success-190: #f3faf2;
+
+  --grey-100: #b5b5b6;
+  --grey-190: #f8f8f8;
+
+  --red-100: #ee7575;
+  --red-190: #fdf1f1;
+
+  --orange-100: #f69a67;
+  --orange-190: #fef8f2;
+
+  --yellow-100: #f1c506;
+  --yellow-190: #fef9e6;
+
+  --lime-100: #bad230;
+  --lime-190: #f8fbea;
+
+  --green-100: #81db79;
+  --green-190: #f2fbf2;
+
+  --turquoise-100: #62d4ba;
+  --turquoise-190: #effbf8;
+
+  --blue-100: #8cb9da;
+  --blue-190: #f4f9fc;
+
+  --violet-100: #ac9bdf;
+  --violet-190: #f7f5fc;
+
+  --purple-100: #d292dc;
+  --purple-190: #fcf4fa;
+
+  --pink-100: #f491b4;
+  --pink-190: #fef7f9;
+
+  --shadow-0: 0px 1px 2px rgba(0, 0, 0, 0.15);
+  --shadow-1: 0px 0px 3px rgba(0, 0, 0, 0.08), 0px 2px 4px rgba(0, 0, 0, 0.12);
+  --shadow-2: 0px 0px 3px rgba(0, 0, 0, 0.05), 0px 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-3: 0px 0px 3px rgba(0, 0, 0, 0.05), 0px 8px 24px rgba(0, 0, 0, 0.16);
+
+  --border-radius-0: 0px;
+  --border-radius-1: 4px;
+  --border-radius-2: 8px;
+  --border-radius-3: 16px;
+  --border-radius-4: 24px;
+  --border-radius-5: 32px;
+
+  --backdrop: rgba(0, 0, 0, 0.5);
+
+  --background: #afaba8;
+  /* --background: #fffbf8; */
+  /* --background: #ffffff; */
+
+  --z-index-below: -1;
+  --z-index-0: 0;
+  --z-index-above: 1;
+  --z-index-inf: 2147483647;
+
+
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
-  font-family: sans-serif;
-  overflow-y: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--background);
+  color: var(--neutral-100);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  overflow: auto;
+  overflow: overlay;
 }
 
-button {
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  appearance: none;
-  font-size: 1.3rem;
-  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
-    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
-  transition: all ease-in 0.1s;
-  cursor: pointer;
-  opacity: 0.9;
+#root {
+  height: 100%;
 }
 
-button:hover {
-  transform: scale(1.05);
-  opacity: 1;
+* {
+  box-sizing: border-box;
 }
 
-li {
-  list-style: none;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
 }
 
 a {
   text-decoration: none;
-  height: fit-content;
-  width: fit-content;
-  margin: 10px;
+  color: inherit;
 }
 
-a:hover {
-  opacity: 1;
-  text-decoration: none;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-.Hello {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+li {
+  padding: 0;
+}
+
+img,
+svg {
+  display: block;
+}
+
+button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--neutral-180);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--neutral-160);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-140);
 }
