@@ -1,8 +1,8 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
 import './App.css';
 import Home from './pages/Home';
 import { ToastProvider } from './util/useToast';
+import Calibration from './pages/Calibration';
 
 export default function App() {
   return (
@@ -10,6 +10,7 @@ export default function App() {
       <ToastProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/calibration" element={<Calibration />} />
         </Routes>
       </ToastProvider>
     </Router>

@@ -102,6 +102,7 @@ export default function Home() {
         >
           Break
         </Button>
+        <Button link="/calibration">Calibrate</Button>
       </Flexbox>
     </Box>
   );
