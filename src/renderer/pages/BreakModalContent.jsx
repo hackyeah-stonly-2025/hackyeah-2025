@@ -82,7 +82,7 @@ export default function BreakModalContent() {
         {breakType === 'water' && <Water />}
       </Flexbox>
       {breakType && (
-        <Flexbox padding={24}>
+        <Flexbox padding={24} marginTop="auto">
           <Button variant="tertiary" onClick={() => setBreakType(null)}>
             Back
           </Button>
