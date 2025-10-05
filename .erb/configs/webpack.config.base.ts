@@ -43,9 +43,9 @@ const configuration: webpack.Configuration = {
    */
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
-    alias: {
-      renderer: path.resolve(__dirname, '../../src/renderer'),
-    },
+    // alias: {
+    //   renderer: path.resolve(webpackPaths.srcPath, 'renderer'),
+    // },
     modules: [webpackPaths.srcPath, 'node_modules'],
     // There is no need to add aliases here, the paths in tsconfig get mirrored
     plugins: [new TsconfigPathsPlugins()],

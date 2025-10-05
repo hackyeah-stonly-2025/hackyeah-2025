@@ -1,22 +1,21 @@
 import styled from 'styled-components';
 import Divider from 'renderer/components/Divider';
 import Accordion from 'renderer/components/Accordion';
-import { useState } from 'react';
 import T from 'prop-types';
+import { useEffect, useRef, useState } from 'react';
 import Typography from '../components/Typography';
 import Button from '../components/Button';
 import Flexbox from '../components/Flexbox';
-
-import CalibrationModelImg from '../images/calibration-model.jpg';
 
 const Box = styled.div`
   width: 800px;
 `;
 
-const Img = styled.img`
+const Img = styled.video`
   object-fit: cover;
   border-radius: 50%;
   margin-top: 24px;
+  transform: scaleX(-1);
 `;
 
 const Steps = styled(Flexbox)`
@@ -25,6 +24,35 @@ const Steps = styled(Flexbox)`
 
 export default function CalibrationModalContent({ onClose }) {
   const [completedSteps, setCompletedSteps] = useState(0);
+  const videoRef = useRef(null);
+
+  const completeStep = () => {
+    if (completedSteps === 0) {
+      window.electron?.ipcRenderer.sendMessage('calibrate-posture');
+    } else if (completedSteps === 1) {
+      window.electron?.ipcRenderer.sendMessage('calibrate-blink');
+    } else if (completedSteps === 2) {
+      window.electron?.ipcRenderer.sendMessage('calibrate-yawn');
+    }
+    setCompletedSteps((steps) => steps + 1);
+  };
+
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
+        return stream;
+      })
+      .catch((error) => {
+        console.error('Error accessing the camera: ', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    window.electron?.ipcRenderer.sendMessage('calibrate-posture');
+  }, []);
 
   return (
     <Box>
@@ -34,7 +62,7 @@ export default function CalibrationModalContent({ onClose }) {
       <Divider />
       <Flexbox gap={32} padding={24}>
         <Img
-          src={CalibrationModelImg}
+          ref={videoRef}
           alt="Calibration Model"
           width="220px"
           height="220px"
@@ -45,14 +73,13 @@ export default function CalibrationModalContent({ onClose }) {
           </Typography>
 
           <Accordion
-            label="1. Frame Your Face"
+            label="1. Keep your back straight"
             isComplete={completedSteps > 0}
             isExpanded={completedSteps === 0}
           >
             <Typography>
-              Position your face within the frame so it`s clearly visible and
-              centered. Make sure there`s adequate lighting and your entire face
-              fits comfortably in the camera view.
+              Keep your back straight and shoulders down. This helps the system
+              detect your posture and avoid false alerts.
             </Typography>
           </Accordion>
           <Accordion
@@ -81,16 +108,13 @@ export default function CalibrationModalContent({ onClose }) {
       </Flexbox>
 
       <Divider />
-      <Button
-        variant="tertiary"
-        onClick={() => setCompletedSteps((steps) => steps + 1)}
-      >
+      <Button variant="tertiary" onClick={completeStep}>
         Next
       </Button>
 
       <Flexbox padding={24} justifyContent="flex-end" gap={8}>
         {completedSteps < 3 ? (
-          <Button variant="tertiary" onClick={() => setCompletedSteps(3)}>
+          <Button variant="tertiary" onClick={completeStep}>
             Skip
           </Button>
         ) : (

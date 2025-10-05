@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import EnergyIndicator from 'renderer/components/EnergyIndicator';
 import Button from 'renderer/components/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'renderer/components/Modal';
 import Typography from '../components/Typography';
 import Flexbox from '../components/Flexbox';
 import BreakModalContent from './BreakModalContent';
+import { formatTime } from '../util/helpers';
 
 const Box = styled.div`
   max-width: 800px;
@@ -14,6 +15,41 @@ const Box = styled.div`
 
 export default function Home() {
   const [showBreakModal, setShowBreakModal] = useState(false);
+  const [stats, setStats] = useState({});
+  const [startTime, setStartTime] = useState(0);
+
+  useEffect(() => {
+    window.electronStore
+      .get('stats')
+      .then((data) => {
+        console.log('data', data);
+        setStats(data);
+      })
+      .catch(console.error);
+    console.log('stats', stats);
+
+    window.electronStore
+      .get('startTime')
+      .then((data) => {
+        console.log('data', data);
+        setStartTime(data);
+      })
+      .catch(console.error);
+
+    const unsubscribe = window.electronStore.onDidChange(
+      'stats',
+      ({ key, newValue }) => {
+        if (key === 'stats') setStats(newValue);
+      },
+    );
+
+    // cleanup if needed (you can’t easily remove listener unless you wrap ipcRenderer)
+    return () => unsubscribe?.();
+  }, []);
+
+  const currentTime = Date.now();
+  const sessionDuration = currentTime - startTime;
+  const sessionDurationFormatted = formatTime(sessionDuration / (1000 * 60));
 
   return (
     <Box>
@@ -36,31 +72,37 @@ export default function Home() {
               <Typography variant="body" color="neutral-140">
                 Session duration
               </Typography>
-              <Typography variant="h5">5h 34m</Typography>
+              <Typography variant="h5">{sessionDurationFormatted}</Typography>
             </Flexbox>
             <Flexbox justifyContent="space-between">
               <Typography variant="body" color="neutral-140">
-                Number of breaks
+                Number of break warnings
               </Typography>
-              <Typography variant="h5">3 breaks</Typography>
+              <Typography variant="h5">
+                {stats?.breakWarnings} breaks
+              </Typography>
             </Flexbox>
             <Flexbox justifyContent="space-between">
               <Typography variant="body" color="neutral-140">
                 No blinking detected
               </Typography>
-              <Typography variant="h5">12 times</Typography>
+              <Typography variant="h5">{stats?.blinkWarnings} times</Typography>
             </Flexbox>
             <Flexbox justifyContent="space-between">
               <Typography variant="body" color="neutral-140">
                 Turtle heads
               </Typography>
-              <Typography variant="h5">3 times</Typography>
+              <Typography variant="h5">
+                {stats?.turtleHeadWarnings} times
+              </Typography>
             </Flexbox>
             <Flexbox justifyContent="space-between">
               <Typography variant="body" color="neutral-140">
                 Head tilts
               </Typography>
-              <Typography variant="h5">7 times</Typography>
+              <Typography variant="h5">
+                {stats?.headTiltWarnings} times
+              </Typography>
             </Flexbox>
           </Flexbox>
         </Flexbox>
