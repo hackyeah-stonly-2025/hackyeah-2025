@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Divider from 'renderer/components/Divider';
 import Accordion from 'renderer/components/Accordion';
 import { useState } from 'react';
+import T from 'prop-types';
 import Typography from '../components/Typography';
 import Button from '../components/Button';
 import Flexbox from '../components/Flexbox';
@@ -22,7 +23,7 @@ const Steps = styled(Flexbox)`
   flex: 1;
 `;
 
-export default function CalibrationModalContent() {
+export default function CalibrationModalContent({ onClose }) {
   const [completedSteps, setCompletedSteps] = useState(0);
 
   return (
@@ -94,11 +95,17 @@ export default function CalibrationModalContent() {
           </Button>
         ) : (
           <>
-            <Button variant="tertiary">Recalibrate</Button>
-            <Button>Save</Button>
+            <Button onClick={() => setCompletedSteps(0)} variant="tertiary">
+              Recalibrate
+            </Button>
+            <Button onClick={onClose}>Save</Button>
           </>
         )}
       </Flexbox>
     </Box>
   );
 }
+
+CalibrationModalContent.propTypes = {
+  onClose: T.func.isRequired,
+};

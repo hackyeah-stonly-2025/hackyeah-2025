@@ -40,7 +40,9 @@ export default function Calibration() {
       {showModal && (
         <Modal
           onClose={() => setShowModal(false)}
-          content={<CalibrationModalContent />}
+          content={(closeModal) => (
+            <CalibrationModalContent onClose={closeModal} />
+          )}
         />
       )}
     </Box>
