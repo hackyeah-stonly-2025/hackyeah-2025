@@ -44,6 +44,30 @@ export default function Home() {
   const sessionDuration = currentTime - startTime;
   const sessionDurationFormatted = formatTime(sessionDuration / (1000 * 60));
 
+  function calculateTiredness() {
+    const weights = {
+      breakWarnings: 1,
+      noBlinkingDetected: 1,
+      turtleHeads: 2,
+      headTilts: 1,
+    };
+
+    if (!stats || !startTime) return 69;
+
+    let tiredness =
+      stats?.breakWarnings * weights.breakWarnings +
+      stats?.blinkWarnings * weights.noBlinkingDetected +
+      stats?.turtleHeadWarnings * weights.turtleHeads +
+      stats?.headTiltWarnings * weights.headTilts;
+
+    const durationFactor = Math.min(sessionDuration / 60, 1);
+    tiredness *= 1 + durationFactor * 0.3;
+
+    return Math.min(Math.round(tiredness), 100);
+  }
+
+  const tiredness = calculateTiredness();
+
   return (
     <Box>
       <Typography variant="h3" marginBottom={32}>
@@ -53,8 +77,8 @@ export default function Home() {
       <Flexbox gap={24} alignItems="flex-start">
         <Flexbox gap={40} padding={24} flexGrow={1} isBordered>
           <Flexbox flexDirection="column" gap={16}>
-            <Typography variant="h4">Tiredness</Typography>
-            <EnergyIndicator value={78} />
+            <Typography variant="h4">Energy and Focus</Typography>
+            <EnergyIndicator value={100 - tiredness} />
           </Flexbox>
 
           <Flexbox flexDirection="column" gap={16} flexGrow={1}>

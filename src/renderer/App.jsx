@@ -53,7 +53,7 @@ export default function App() {
                   <Typography variant="h3" marginTop={80}>
                     Initializing face recognition...
                   </Typography>
-                  <Typography variant="body1" marginTop={16}>
+                  <Typography variant="body1" marginBottom={8}>
                     This may take a while (up to 2 minutes). Please wait.
                   </Typography>
                   <Loader />
