@@ -12,30 +12,30 @@ export const getNextId = (items) => {
 };
 
 export const generateRandomUUID = () => {
-  const uuidTemplate = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx";
+  const uuidTemplate = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
   return uuidTemplate.replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 };
 
-export const caseInsensitiveCompare = (a = "", b = "") => {
+export const caseInsensitiveCompare = (a = '', b = '') => {
   return a.toUpperCase().includes(b.toUpperCase());
 };
 
 export const getDomainFromUrl = (url) => {
-  if (!url) return "";
+  if (!url) return '';
   try {
     const urlObj = new URL(url);
-    return urlObj.hostname.replace(/^www\./, "");
+    return urlObj.hostname.replace(/^www\./, '');
   } catch {
     return url;
   }
 };
 
 export const shortenLink = (link) => {
-  if (!link) return "";
+  if (!link) return '';
   const linkRegex = /^(?:https?:\/\/)?(?:[^@/\n]+@)?(?:www\.)?([^:/\n]+)/;
   const match = link.match(linkRegex);
   return match ? match[1] : link;
@@ -43,10 +43,10 @@ export const shortenLink = (link) => {
 
 export const formatTime = (minutes) => {
   if (!minutes) {
-    return "-";
+    return '-';
   }
 
-  const min = minutes % 60;
+  const min = Math.floor(minutes % 60);
   const h = Math.floor(minutes / 60);
 
   if (!h) {
@@ -76,9 +76,10 @@ export function getBufferFromFile(file) {
 
 function convertSpacingValueToPixels(value) {
   if (!value) return 0;
-  if (typeof value === "number") {
+  if (typeof value === 'number') {
     return `${value}px`;
-  } else return value;
+  }
+  return value;
 }
 
 export function calculateSpacingValue(
@@ -88,9 +89,9 @@ export function calculateSpacingValue(
   spacingBottom,
   spacingLeft,
   spacingX,
-  spacingY
+  spacingY,
 ) {
-  if (spacing && typeof spacing === "string" && spacing.includes(" ")) {
+  if (spacing && typeof spacing === 'string' && spacing.includes(' ')) {
     return spacing;
   }
 
@@ -119,5 +120,5 @@ export function calculateSpacingValue(
 
   if (!spacingArray.filter(Boolean).length) return null;
 
-  return spacingArray.join(" ");
+  return spacingArray.join(' ');
 }
