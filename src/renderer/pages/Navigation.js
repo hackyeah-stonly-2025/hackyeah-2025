@@ -58,7 +58,7 @@ function Navigation({ className }) {
       alignItems="center"
       justifyContent="space-between"
     >
-      <Logo link="/app" />
+      <Logo />
       <LinkStyled
         $isActive={location.pathname.includes('settings')}
         to="settings/events"

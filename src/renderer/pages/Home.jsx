@@ -86,7 +86,7 @@ export default function Home() {
       {showBreakModal && (
         <Modal
           onClose={() => setShowBreakModal(false)}
-          content={BreakModalContent}
+          content={<BreakModalContent />}
         />
       )}
     </Box>
