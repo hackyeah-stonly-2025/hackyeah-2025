@@ -26,7 +26,7 @@ export function registerStoreHandlers(mainWindow: BrowserWindow) {
     if (!watchedKeys.has(key)) {
       watchedKeys.add(key);
       store.onDidChange(key, (newValue: unknown, oldValue: unknown) => {
-        mainWindow.webContents.send('store:changed', {
+        mainWindow?.webContents?.send('store:changed', {
           key,
           newValue,
           oldValue,

@@ -21,19 +21,12 @@ export default function Home() {
   useEffect(() => {
     window.electronStore
       .get('stats')
-      .then((data) => {
-        console.log('data', data);
-        setStats(data);
-      })
+      .then((data) => setStats(data))
       .catch(console.error);
-    console.log('stats', stats);
 
     window.electronStore
       .get('startTime')
-      .then((data) => {
-        console.log('data', data);
-        setStartTime(data);
-      })
+      .then((data) => setStartTime(data))
       .catch(console.error);
 
     const unsubscribe = window.electronStore.onDidChange(

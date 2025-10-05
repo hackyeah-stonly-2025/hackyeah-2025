@@ -3,7 +3,7 @@
 import path from 'path';
 import { execFile, ChildProcess } from 'child_process';
 import { registerStoreHandlers } from './storeIpcHandlers';
-import store from './store.ts';
+import store from './store';
 
 // const store = new Store({
 //   defaults: {
@@ -28,12 +28,25 @@ import {
   shell,
   ipcMain,
   screen,
+  nativeImage,
   type Display,
 } from 'electron';
 
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { ImageAnalysisMetrics } from './metrics.types';
+
+const RESOURCES_PATH = app.isPackaged
+  ? path.join(process.resourcesPath, 'assets')
+  : path.join(__dirname, '../../assets');
+
+const getAssetPath = (...paths: string[]): string => {
+  return path.join(RESOURCES_PATH, ...paths);
+};
+
+const icon = nativeImage.createFromPath(getAssetPath('icon.png'));
+app.setName('PeakyBlinkers');
+app.dock.setIcon(icon);
 
 let mainWindow: BrowserWindow | null = null;
 let notificationWindow: BrowserWindow | null = null;
@@ -184,13 +197,21 @@ const processCurrentData = (data: ImageAnalysisMetrics) => {
   // Track yawn time
   if (
     calibrationState.yawnThreshold &&
-    averagedData.averageMouthOpenRatio >
-      Number(calibrationState.yawnThreshold) - 0.15
+    averagedData.averageMouthOpenRatio > calibrationState.yawnThreshold - 0.1
   ) {
     yawnStartAt = now;
   } else {
     yawnStartAt = null;
   }
+
+  // console.log(
+  //   'averagedData.averageMouthOpenRatio',
+  //   averagedData.averageMouthOpenRatio,
+  // );
+  // console.log(
+  //   'calibrationState.yawnThreshold',
+  //   calibrationState.yawnThreshold - 0.1,
+  // );
 
   // Track last blink time
   if (face.is_blink) {
@@ -216,8 +237,6 @@ const processCurrentData = (data: ImageAnalysisMetrics) => {
   const averageTurtleToCalibratedRatio =
     averageEyesToArmsRatio / calibrationState.eyesToArmsRatio;
 
-  console.log('averageTurtleToCalibratedRatio', averageTurtleToCalibratedRatio);
-
   if (isTurtleCalibrated && averageTurtleToCalibratedRatio > 1.1) {
     if (turtleHeadStartAt == null) {
       turtleHeadStartAt = now;
@@ -232,6 +251,12 @@ const processCurrentData = (data: ImageAnalysisMetrics) => {
   const msSinceLastBlink = lastBlinkAt != null ? now - lastBlinkAt : Infinity;
   const msSinceTurtleHead =
     turtleHeadStartAt != null ? now - turtleHeadStartAt : 0;
+
+  // console.log('msSinceYawning', msSinceYawning);
+  // console.log('msSinceLastBlink', msSinceLastBlink);
+  // console.log('msSinceHeadTilt', hasHeadTiltedMs);
+  // console.log('msSincePresent', hasBeenPresentMs);
+  // console.log('msSinceTurtleHead', msSinceTurtleHead);
 
   const shouldNotifyAboutBlinking =
     isPresent && msSinceLastBlink > NOTIFY_NO_BLINK_MS;
@@ -471,10 +496,10 @@ const createNotificationWindow = (display: Display) => {
   );
 };
 
-const createWindow = async () => {
-  if (isDebug) {
-    await installExtensions();
-  }
+const createWindow = () => {
+  // if (isDebug) {
+  //   await installExtensions();
+  // }
 
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
@@ -541,10 +566,19 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(async () => {
-    const mainWindow = await createWindow();
+    // let mainWindow: BrowserWindow | null = null;
+    app.dock.show();
     registerStoreHandlers(mainWindow);
+    mainWindow = createWindow();
 
     store.set('startTime', Date.now());
+    store.set('stats', {
+      blinkWarnings: 0,
+      breakWarnings: 0,
+      headTiltWarnings: 0,
+      turtleHeadWarnings: 0,
+      yawns: 0,
+    });
     startRecognitionServer();
     createVideoFeedWindow();
 
@@ -554,7 +588,9 @@ app
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
-      if (mainWindow === null) createWindow();
+      if (mainWindow === null) {
+        mainWindow = createWindow();
+      }
       if (notificationWindow === null) createNotificationWindow(primaryDisplay);
     });
   })

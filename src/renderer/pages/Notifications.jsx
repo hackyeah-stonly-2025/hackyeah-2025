@@ -17,6 +17,7 @@ const iconMap = {
   break: BreakSVG,
   straightenHead: HeadTiltSVG,
   turtleHead: HeadTiltSVG,
+  yawn: BreakSVG,
 };
 
 const variantMap = {
@@ -25,6 +26,7 @@ const variantMap = {
   break: 'success',
   straightenHead: 'error',
   turtleHead: 'error',
+  yawn: 'error',
 };
 
 const labelMap = {
@@ -33,6 +35,7 @@ const labelMap = {
   break: "Take a break - you've been staring at your screen for 50 minutes",
   straightenHead: "Straighten your head - it's tilted!",
   turtleHead: "Don't be a turtle, straighten your back!",
+  yawn: 'You look tired, take a break!',
 };
 
 export default function Notifications() {
