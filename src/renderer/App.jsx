@@ -50,8 +50,11 @@ export default function App() {
               path="/"
               element={
                 <Flexbox flexDirection="column" gap={16} alignItems="center">
-                  <Typography variant="h3" marginTop={16} marginBottom={16}>
+                  <Typography variant="h3" marginTop={80}>
                     Initializing face recognition...
+                  </Typography>
+                  <Typography variant="body1" marginTop={16}>
+                    This may take a while (up to 2 minutes). Please wait.
                   </Typography>
                   <Loader />
                 </Flexbox>

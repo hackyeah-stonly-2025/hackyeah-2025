@@ -61,7 +61,7 @@ export default function Home() {
         <Flexbox gap={40} padding={24} flexGrow={1} isBordered>
           <Flexbox flexDirection="column" gap={16}>
             <Typography variant="h4">Tiredness</Typography>
-            <EnergyIndicator value={parseInt(Math.random() * 100, 10)} />
+            <EnergyIndicator value={78} />
           </Flexbox>
 
           <Flexbox flexDirection="column" gap={16} flexGrow={1}>
@@ -79,21 +79,26 @@ export default function Home() {
                 Number of break warnings
               </Typography>
               <Typography variant="h5">
-                {stats?.breakWarnings} breaks
+                {stats?.breakWarnings}{' '}
+                {stats?.breakWarnings === 1 ? 'break' : 'breaks'}
               </Typography>
             </Flexbox>
             <Flexbox justifyContent="space-between">
               <Typography variant="body" color="neutral-140">
                 No blinking detected
               </Typography>
-              <Typography variant="h5">{stats?.blinkWarnings} times</Typography>
+              <Typography variant="h5">
+                {stats?.blinkWarnings}{' '}
+                {stats?.blinkWarnings === 1 ? 'time' : 'times'}
+              </Typography>
             </Flexbox>
             <Flexbox justifyContent="space-between">
               <Typography variant="body" color="neutral-140">
                 Turtle heads
               </Typography>
               <Typography variant="h5">
-                {stats?.turtleHeadWarnings} times
+                {stats?.turtleHeadWarnings}{' '}
+                {stats?.turtleHeadWarnings === 1 ? 'time' : 'times'}
               </Typography>
             </Flexbox>
             <Flexbox justifyContent="space-between">
@@ -101,7 +106,8 @@ export default function Home() {
                 Head tilts
               </Typography>
               <Typography variant="h5">
-                {stats?.headTiltWarnings} times
+                {stats?.headTiltWarnings}{' '}
+                {stats?.headTiltWarnings === 1 ? 'time' : 'times'}
               </Typography>
             </Flexbox>
           </Flexbox>
