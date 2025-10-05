@@ -59,7 +59,6 @@ function Toast({ id, variant = 'success', label, icon, hideToast, autoHide }) {
   const shouldShowCloseIcon = !autoHide;
   return (
     <Box gap={12} variant={variant} shouldShowCloseIcon={shouldShowCloseIcon}>
-      {console.log('icon', icon)}
       <ToastIcon size={24} src={icon} variant={variant} />
       {label}
       {shouldShowCloseIcon && (

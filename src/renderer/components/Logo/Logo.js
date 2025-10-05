@@ -2,7 +2,7 @@ import React from 'react';
 import T from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import LogoSVG from 'renderer/images/logo-2.svg';
+import LogoSVG from 'renderer/images/logo.svg';
 
 const LogoLink = styled(Link)`
   display: flex;
