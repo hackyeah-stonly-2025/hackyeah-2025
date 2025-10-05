@@ -14,11 +14,6 @@ const Box = styled.div`
 const Header = styled(Flexbox)`
   padding: 12px 8px;
   user-select: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--neutral-180);
-  }
 `;
 
 const Content = styled.div`

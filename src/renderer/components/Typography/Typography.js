@@ -64,7 +64,7 @@ const StyledComponent = styled.div`
     variant === 'h5' &&
     css`
       font-family: 'Ubuntu', sans-serif;
-      font-size: 14px;
+      font-size: 16px;
       line-height: 20px;
       font-weight: 700;
       letter-spacing: -0.02em;

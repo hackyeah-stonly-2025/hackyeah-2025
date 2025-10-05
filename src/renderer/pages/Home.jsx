@@ -1,60 +1,94 @@
 import styled from 'styled-components';
-import Divider from 'renderer/components/Divider';
+import EnergyIndicator from 'renderer/components/EnergyIndicator';
+import Button from 'renderer/components/Button';
+import { useState } from 'react';
+import Modal from 'renderer/components/Modal';
 import Typography from '../components/Typography';
 import Flexbox from '../components/Flexbox';
-import ExerciseSVG from '../icons/exercise.svg';
-import BinocularsSVG from '../icons/binoculars.svg';
-import WaterSVG from '../icons/water.svg';
+import BreakModalContent from './BreakModalContent';
 
-const Box = styled.div``;
-
-const Card = styled(Flexbox)`
-  flex-direction: column;
-  padding: 8px;
-  gap: 8px;
-  border-radius: var(--border-radius-2);
-  border: 1px solid var(--neutral-180);
-`;
-
-const Icon = styled.img`
-  align-self: center;
-  margin-top: 16px;
-  margin-bottom: 16px;
+const Box = styled.div`
+  max-width: 800px;
+  margin: 40px auto;
 `;
 
 export default function Home() {
+  const [showBreakModal, setShowBreakModal] = useState(false);
+
   return (
     <Box>
-      <Flexbox padding={24}>
-        <Typography variant="h3">Take a break</Typography>
+      <Typography variant="h3" marginBottom={32}>
+        Your on-screen session
+      </Typography>
+
+      <Flexbox gap={24} alignItems="flex-start">
+        <Flexbox gap={40} padding={24} flexGrow={1} isBordered>
+          <Flexbox flexDirection="column" gap={16}>
+            <Typography variant="h4">Tiredness</Typography>
+            <EnergyIndicator value={parseInt(Math.random() * 100, 10)} />
+          </Flexbox>
+
+          <Flexbox flexDirection="column" gap={16} flexGrow={1}>
+            <Typography variant="h4" marginBottom={8}>
+              Session details
+            </Typography>
+            <Flexbox justifyContent="space-between">
+              <Typography variant="body" color="neutral-140">
+                Session duration
+              </Typography>
+              <Typography variant="h5">5h 34m</Typography>
+            </Flexbox>
+            <Flexbox justifyContent="space-between">
+              <Typography variant="body" color="neutral-140">
+                Number of breaks
+              </Typography>
+              <Typography variant="h5">3 breaks</Typography>
+            </Flexbox>
+            <Flexbox justifyContent="space-between">
+              <Typography variant="body" color="neutral-140">
+                No blinking detected
+              </Typography>
+              <Typography variant="h5">12 times</Typography>
+            </Flexbox>
+            <Flexbox justifyContent="space-between">
+              <Typography variant="body" color="neutral-140">
+                Turtle heads
+              </Typography>
+              <Typography variant="h5">3 times</Typography>
+            </Flexbox>
+            <Flexbox justifyContent="space-between">
+              <Typography variant="body" color="neutral-140">
+                Head tilts
+              </Typography>
+              <Typography variant="h5">7 times</Typography>
+            </Flexbox>
+          </Flexbox>
+        </Flexbox>
+
+        <Flexbox
+          gap={12}
+          padding={24}
+          flexDirection="column"
+          flexGrow={1}
+          isBordered
+        >
+          <Typography variant="h4" marginBottom={16}>
+            Quick Actions
+          </Typography>
+          <Button onClick={() => setShowBreakModal(true)} fullWidth>
+            Take a break
+          </Button>
+          <Button variant="tertiary" fullWidth>
+            Reset session
+          </Button>
+        </Flexbox>
       </Flexbox>
-      <Divider />
-      <Flexbox gap={16} padding={24}>
-        <Card>
-          <Icon width="96px" height="96px" src={ExerciseSVG} />
-          <Typography variant="h4">Move your body</Typography>
-          <Typography>
-            Stand up, stretch, and walk around. Get your blood flowing and shake
-            off the stiffness from sitting.
-          </Typography>
-        </Card>
-        <Card>
-          <Icon width="96px" height="96px" src={BinocularsSVG} />
-          <Typography variant="h4">Rest Your Eyes</Typography>
-          <Typography>
-            Look at something 20 meters away or close your eyes. Give your eyes
-            a break from screen glare.
-          </Typography>
-        </Card>
-        <Card>
-          <Icon width="96px" height="96px" src={WaterSVG} />
-          <Typography variant="h4">Hydrate & Reset</Typography>
-          <Typography>
-            Drink water, take deep breaths, and step away mentally. Clear your
-            mind for better focus.
-          </Typography>
-        </Card>
-      </Flexbox>
+      {showBreakModal && (
+        <Modal
+          onClose={() => setShowBreakModal(false)}
+          content={BreakModalContent}
+        />
+      )}
     </Box>
   );
 }

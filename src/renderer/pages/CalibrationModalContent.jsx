@@ -66,7 +66,7 @@ export default function CalibrationModalContent() {
             </Typography>
           </Accordion>
           <Accordion
-            label="3. Yawn recognition"
+            label="3. Yawn Recognition"
             isComplete={completedSteps > 2}
             isExpanded={completedSteps === 2}
           >

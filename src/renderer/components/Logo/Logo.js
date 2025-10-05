@@ -22,7 +22,7 @@ const Img = styled.img`
 
 function Logo({ className, link }) {
   return (
-    <LogoLink className={className} to={link}>
+    <LogoLink className={className} to="/">
       {/* <Img
         src={EyelidSVG}
         alt="Peaky Blinkers logo"

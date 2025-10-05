@@ -24,12 +24,6 @@ const Box = styled(Flexbox)`
   }
 `;
 
-const Links = styled(Flexbox)`
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-`;
-
 const LinkStyled = styled(Link)`
   color: var(--neutral-120);
   padding: 4px 8px;
@@ -65,23 +59,12 @@ function Navigation({ className }) {
       justifyContent="space-between"
     >
       <Logo link="/app" />
-      <Links justifyContent="center" gap={16}>
-        <LinkStyled $isActive={location.pathname === '/'} to="/">
-          Home
-        </LinkStyled>
-        <LinkStyled
-          $isActive={location.pathname.includes('insights')}
-          to="insights"
-        >
-          Insights
-        </LinkStyled>
-        <LinkStyled
-          $isActive={location.pathname.includes('settings')}
-          to="settings/events"
-        >
-          Settings
-        </LinkStyled>
-      </Links>
+      <LinkStyled
+        $isActive={location.pathname.includes('settings')}
+        to="settings/events"
+      >
+        Settings
+      </LinkStyled>
     </Box>
   );
 }
