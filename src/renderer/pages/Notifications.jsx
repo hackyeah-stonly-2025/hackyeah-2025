@@ -30,7 +30,7 @@ const variantMap = {
 const labelMap = {
   blink: "Don't forget to blink!",
   stare: "Don't stare - look around!",
-  break: "Take a break - you've been staring at your screen for 50 minutes",
+  break: "Take a break - you've been staring at your screen for some time!",
   straightenHead: "Straighten your head - it's tilted!",
   turtleHead: "Don't be a turtle, straighten your back!",
 };
