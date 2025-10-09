@@ -108,14 +108,11 @@ export default function CalibrationModalContent({ onClose }) {
       </Flexbox>
 
       <Divider />
-      <Button variant="tertiary" onClick={completeStep}>
-        Next
-      </Button>
 
       <Flexbox padding={24} justifyContent="flex-end" gap={8}>
         {completedSteps < 3 ? (
           <Button variant="tertiary" onClick={completeStep}>
-            Skip
+            Next
           </Button>
         ) : (
           <>
