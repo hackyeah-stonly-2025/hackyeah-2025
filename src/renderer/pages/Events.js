@@ -5,7 +5,7 @@ import Setting from '../components/Setting';
 
 function Events() {
   const [settings, setSettings] = useState({
-    blinkFrequency: 'full_screen',
+    blinkFrequency: 'toast',
     turtleHead: 'toast',
     headTilt: 'toast',
     tiredness: 'toast',
@@ -27,7 +27,7 @@ function Events() {
             { label: 'Off', value: 'off' },
             { label: 'Toast notification', value: 'toast' },
             {
-              label: 'Full screen notification',
+              label: 'Full screen animation',
               value: 'full_screen',
             },
           ]}
